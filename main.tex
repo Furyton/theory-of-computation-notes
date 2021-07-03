@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{hyperref}
+\usepackage{indentfirst}
+
+\usepackage[top=2cm, left=2.3cm, right=2.7cm, bottom=2.5cm,a4paper]{geometry}
+
+\begin{document}
+
+\section{CFLs}
+
+    \textbf{note 1}: $\Sigma=\{a,b\}$
+
+    \textbf{note 2}: $n_x(a)$ means the number of a's in the string x.
+
+
+    \begin{itemize}
+        \item  $\left\{x| n_x(a)=n_x(b)\right\}$ \\ corresponding CFG : 
+            \begin{align*}
+                S \rightarrow aSbS | bSaS | \epsilon
+            \end{align*}
+        \item $\left\{x | n_x(a)\geq n_x(b)\right\}$ \\corresponding CFG:
+            \begin{align*}
+                S \rightarrow SS | aSb | bSa | a | \epsilon
+            \end{align*}
+
+            not surely right version : 
+            \begin{align*}
+                S&\rightarrow SaS | T \\
+                T&\rightarrow aTbT | bTaT | \epsilon
+            \end{align*}
+        \item $\left\{x | n_x(a)=2n_x(b)\right\}$  \\ corresponding CFG:
+            \begin{align*}
+                S \rightarrow SaSaSbS | SaSbSaS | SbSaSaS | \epsilon
+            \end{align*}
+        \item complement of $a^nb^n$ \\ corresponding CFG:
+            \begin{align*}
+                S & \rightarrow aSb | bY | Ya \\
+                Y & \rightarrow bY | aY | \epsilon
+            \end{align*}
+        \item $\left\{ a^ib^j | i\neq j \wedge i \neq 2j\right\}$ \\ corresponding CFG(not surely right):
+            \begin{align*}
+                S & \rightarrow A | B | N\\
+                E & \rightarrow aEb | \epsilon\\
+                A & \rightarrow Eb | aAb | Ab\\
+                B & \rightarrow aaEb | aBb \\
+                M & \rightarrow aaMb | \epsilon\\
+                N & \rightarrow aM | aNb | aN
+            \end{align*}
+    \end{itemize}
+
+   
+    
+    
+    
+    
+
+    
+\end{document}
