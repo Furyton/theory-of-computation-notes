@@ -35,6 +35,8 @@
             \begin{align*}
                 S \rightarrow SaSaSbS | SaSbSaS | SbSaSaS | \epsilon
             \end{align*}
+            using similar method, we can easily generalize this into k.\\
+            important lemma needed in the proof: substring $a^xba^y,\; (x+y=k)$ can always be found in any non-empty string s in the language.
         \item complement of $a^nb^n$ \\ corresponding CFG:
             \begin{align*}
                 S & \rightarrow aSb | bY | Ya \\
@@ -45,9 +47,17 @@
                 S & \rightarrow A | B | N\\
                 E & \rightarrow aEb | \epsilon\\
                 A & \rightarrow Eb | aAb | Ab\\
-                B & \rightarrow aaEb | aBb \\
+                B & \rightarrow aaabb | aBb | aaBb \\
                 M & \rightarrow aaMb | \epsilon\\
                 N & \rightarrow aM | aNb | aN
+            \end{align*}
+        \item $\left\{xyz|x,\,z\in \Sigma^\star ,\; y\in \Sigma^\star b \Sigma^\star \; and \; |x|=|z|\geq |y|\right\}$ \\ corresponding CFG (not surely right):
+            \begin{align*}
+                S & \rightarrow A|B|C\\
+                A & \rightarrow EEEbEE | EAE | EEAE \\ 
+                B & \rightarrow EEbEEE | EBE | EBEE \\
+                C & \rightarrow EbE | ECE\\
+                E & \rightarrow a|b
             \end{align*}
     \end{itemize}
 
