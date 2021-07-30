@@ -51,6 +51,16 @@
                 M & \rightarrow aaMb | \epsilon\\
                 N & \rightarrow aM | aNb | aN
             \end{align*}
+
+        \item $\left\{ a^ib^j | i \leq j \leq 2i \right\}$ \\ 
+            With the idea of previous problem, it's easy to construt a CFG to recognize this language.
+
+            But it's also elegant to use PDA to solve this problem. 
+            
+            While PDF read 'a', it randomly push one 'a' or two 'a's into stack and pop two 'a's while reading 'b'.And PDA accepts while stack is empty.
+            
+            Using this idea, it's also easy to show $\left\{ x | n_{x}(a) \leq n_{x}(b) \leq 2n_{x}(a) \right\}$ is CFL.
+
         \item $\left\{xyz|x,\,z\in \Sigma^\star ,\; y\in \Sigma^\star b \Sigma^\star \; and \; |x|=|z|\geq |y|\right\}$ \\ corresponding CFG (not surely right):
             \begin{align*}
                 S & \rightarrow A|B|C\\
@@ -59,6 +69,38 @@
                 C & \rightarrow EbE | ECE\\
                 E & \rightarrow a|b
             \end{align*}
+        \item convert NFA/DFA into CFG \\
+            let D = ($Q, \Sigma, \delta, q_{0}, F$) be a NFA, and WLOG, $F = \{p\}$.
+            
+            let C = ($V, T, R, S$) be a CFL, and
+            \begin{itemize}
+                \item $V$ = $Q$ 
+                \item  $T$ = $\Sigma$ 
+                \item $S = q_{0}$
+                \item $\forall x, y \in Q, c \in \Sigma, y\in \delta(x, c)$, insert ''$x \rightarrow cy$'' into $R$ 
+                \item insert ''$p \rightarrow \epsilon$'' into $R$
+            \end{itemize}
+
+            Also, one can construt D = ($V', T', R', S'$) be a CFL, and
+            \begin{itemize}
+                \item $V'$ = $Q'$ 
+                \item  $T'$ = $\Sigma$ 
+                \item $S' = p$
+                \item $\forall x, y \in Q, c \in \Sigma, y\in \delta(x, c)$, insert ''$y \rightarrow xc$'' into $R'$ 
+                \item insert ''$q_{0} \rightarrow \epsilon$'' into $R'$
+            \end{itemize}
+
+            Using similar idea, it's obvious that if $R$ in arbitrary CFG contains only transitions of type $A \rightarrow cB$ where $A, B \in V, c \in T^{*}$or only transitions of type $A \rightarrow Bc$, this CFG generates regular language.
+
+            But if $R$ contains both type $A \rightarrow cB$ and type $A \rightarrow Bc$, thus this CFG might generate CFL.
+            
+            For example, consider this CFG
+            \begin{align*}
+                S & \rightarrow Bb | \epsilon \\
+                B & \rightarrow aS\\
+            \end{align*}
+            This CFG generates CFL(hint: use pumping lemma of regular language). \\
+            But I(yyx) haven't figured out whether CFGs contains only these two types transitions can generate all CFLs or not. I(yyx) guess the answer is NO.
     \end{itemize}
 
    
