@@ -15,7 +15,7 @@
 
     \textbf{note 2}: $n_x(a)$ means the number of a's in the string x.
 
-
+\subsection{common seen CFGs}
     \begin{itemize}
         \item  $\left\{x| n_x(a)=n_x(b)\right\}$ \\ corresponding CFG : 
             \begin{align*}
@@ -36,7 +36,7 @@
                 S \rightarrow SaSaSbS | SaSbSaS | SbSaSaS | \epsilon
             \end{align*}
             using similar method, we can easily generalize this into k.\\
-            important lemma needed in the proof: substring $a^xba^y,\; (x+y=k)$ can always be found in any non-empty string s in the language.
+            an important lemma needed in the proof: substring $a^xba^y,\; (x+y=k)$ can always be found in any non-empty string s in the language.
         \item complement of $a^nb^n$ \\ corresponding CFG:
             \begin{align*}
                 S & \rightarrow aSb | bY | Ya \\
@@ -57,7 +57,7 @@
 
             But it's also elegant to use PDA to solve this problem. 
             
-            While PDF read `a', it randomly push one `a' or two `a's into stack and pop two `a's while reading `b'.And PDA accepts while stack is empty.
+            While the PDA reads an `a', it randomly pushes one `a' or two `a's into stack and pops two `a's while reading `b'.And PDA accepts when stack is empty.
             
             Using this idea, it's also easy to show $\left\{ x | n_{x}(a) \leq n_{x}(b) \leq 2n_{x}(a) \right\}$ is CFL.
 
@@ -69,49 +69,54 @@
                 C & \rightarrow EbE | ECE\\
                 E & \rightarrow a|b
             \end{align*}
-        \item convert NFA/DFA into CFG \\
-            let D = ($Q, \Sigma, \delta, q_{0}, F$) be a NFA, and WLOG, $F = \{p\}$.
-            
-            let C = ($V, T, R, S$) be a CFL, and
-            \begin{itemize}
-                \item $V$ = $Q$ 
-                \item  $T$ = $\Sigma$ 
-                \item $S = q_{0}$
-                \item $\forall x, y \in Q, c \in \Sigma, y\in \delta(x, c)$, insert ``$x \rightarrow cy$'' into $R$ 
-                \item insert ``$p \rightarrow \epsilon$'' into $R$
-            \end{itemize}
+        \end{itemize}
+\subsection{others}
 
-            Also, one can construt D = ($V', T', R', S'$) be a CFL, and
-            \begin{itemize}
-                \item $V'$ = $Q'$ 
-                \item  $T'$ = $\Sigma$ 
-                \item $S' = p$
-                \item $\forall x, y \in Q, c \in \Sigma, y\in \delta(x, c)$, insert ``$y \rightarrow xc$'' into $R'$ 
-                \item insert ``$q_{0} \rightarrow \epsilon$'' into $R'$
-            \end{itemize}
+\subsubsection{convert NFA/DFA into CFG}
+    let D = ($Q, \Sigma, \delta, q_{0}, F$) be a NFA, and WLOG, $F = \{p\}$.
+    
+    let C = ($V, T, R, S$) to be the resulting CFG, and
+    \begin{itemize}
+        \item $V$ = $Q$ 
+        \item  $T$ = $\Sigma$ 
+        \item $S = q_{0}$
+        \item $\forall x, y \in Q, c \in \Sigma, y\in \delta(x, c)$, insert ``$x \rightarrow cy$'' into $R$ 
+        \item insert ``$p \rightarrow \epsilon$'' into $R$
+    \end{itemize}
 
-            Using similar idea, it's obvious that if $R$ in arbitrary CFG contains only transitions of type $A \rightarrow cB$ where $A, B \in V, c \in T^{*}$or only transitions of type $A \rightarrow Bc$, this CFG generates regular language.
+    Also, one can construt a CFG D = ($V', T', R', S'$) and
+    \begin{itemize}
+        \item $V'$ = $Q'$ 
+        \item  $T'$ = $\Sigma$ 
+        \item $S' = p$
+        \item $\forall x, y \in Q, c \in \Sigma, y\in \delta(x, c)$, insert ``$y \rightarrow xc$'' into $R'$ 
+        \item insert ``$q_{0} \rightarrow \epsilon$'' into $R'$
+    \end{itemize}
 
-            But if $R$ contains both type $A \rightarrow cB$ and type $A \rightarrow Bc$, thus this CFG might generate CFL.
-            
-            For example, consider this CFG
-            
+    \paragraph*{extention}
+
+    \begin{itemize}
+        \item 
+            Using similar idea, it's obvious that if the rules in a CFG contain only transitions of type $A \rightarrow cB$ where $A, B \in V, c \in T^{*}$or only transitions of type $A \rightarrow Bc$, this CFG generates regular language.
+
+            However if the rules contain both transitions of type $A \rightarrow cB$ and type $A \rightarrow Bc$, this CFG might generate CFL but regular language.
+        
+            For example, consider CFG
             \begin{align*}
                 S & \rightarrow Bb | \epsilon \\
-                B & \rightarrow aS\\
+                B & \rightarrow aS
             \end{align*}
-
             The language of this CFG may not be regular(hint: use pumping lemma of regular language). 
-
-            It also can be shown that there are some CFLs cannot be recognize by this CFG type.
-
-            First we need to formalize this type of CFG, $G = (V, T, R, S)$
+        
+            Note that there are some CFLs that cannot be recognized by this type of CFGs.
+        
+            To show that, first we need to formalize this type of CFG, $G = (V, T, R, S)$
             $R$ contains transitions of \textbf{both} type $A \rightarrow cB$ and type $A \rightarrow Bc$, while it also contains type of $A \rightarrow c$ where $A,B \in V, c \in T^{*}$. 
             
-            And we can simply this type into ``standard type'' with same ability, that $R$ contains transitions of \textbf{both} type $A \rightarrow cB$ and type $A \rightarrow Bc$, while it also contains type of $A \rightarrow c$ where $A,B \in V,c \in T$, especially, only $S$ could yields $\epsilon$. (hint: implement Chomsky normal form).
+            Moreover we can simplify this type into ``standard type'' with same ability, that $R$ contains transitions of \textbf{both} type $A \rightarrow cB$ and type $A \rightarrow Bc$, while it also contains type of $A \rightarrow c$ where $A,B \in V,c \in T$, especially, only $S$ could yield $\epsilon$. (hint: implement Chomsky normal form).
             
-            Pumping lemma for ``standard type'', for any string in language $L$ whose length is larger than $p$, can be rewrite into $xyuvw$, $x, y, u, v, w \in T^{*}$ such that.
-
+            Pumping lemma for ``standard type'', for any string in language $L$ whose length is larger than $p$, can be rewrited as $xyuvw$, $x, y, u, v, w \in T^{*}$ such that.
+        
             \begin{itemize}
                 \item[1.] $|xyvw| \leq p$
                 \item[2.] $|yv| \geq 1$
@@ -119,15 +124,8 @@
             \end{itemize}
             (hint: consider parsing tree of ``standard type'')
             
-            With this lemma, it can be shown that $\left\{ a^{n}b^{n}a^{m}b^{m} | n,m \geq 0 \right\}$ cannot be recognize by ``standard type''.
-
+            With this lemma, it can be shown that $\left\{ a^{n}b^{n}a^{m}b^{m} | n,m \geq 0 \right\}$ cannot be recognized by ``standard type''.
     \end{itemize}
-
-   
-    
-    
-    
-    
 
     
 \end{document}
