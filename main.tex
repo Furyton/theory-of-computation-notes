@@ -57,7 +57,7 @@
 
             But it's also elegant to use PDA to solve this problem. 
             
-            While PDF read 'a', it randomly push one 'a' or two 'a's into stack and pop two 'a's while reading 'b'.And PDA accepts while stack is empty.
+            While PDF read `a', it randomly push one `a' or two `a's into stack and pop two `a's while reading `b'.And PDA accepts while stack is empty.
             
             Using this idea, it's also easy to show $\left\{ x | n_{x}(a) \leq n_{x}(b) \leq 2n_{x}(a) \right\}$ is CFL.
 
@@ -77,8 +77,8 @@
                 \item $V$ = $Q$ 
                 \item  $T$ = $\Sigma$ 
                 \item $S = q_{0}$
-                \item $\forall x, y \in Q, c \in \Sigma, y\in \delta(x, c)$, insert ''$x \rightarrow cy$'' into $R$ 
-                \item insert ''$p \rightarrow \epsilon$'' into $R$
+                \item $\forall x, y \in Q, c \in \Sigma, y\in \delta(x, c)$, insert ``$x \rightarrow cy$'' into $R$ 
+                \item insert ``$p \rightarrow \epsilon$'' into $R$
             \end{itemize}
 
             Also, one can construt D = ($V', T', R', S'$) be a CFL, and
@@ -86,8 +86,8 @@
                 \item $V'$ = $Q'$ 
                 \item  $T'$ = $\Sigma$ 
                 \item $S' = p$
-                \item $\forall x, y \in Q, c \in \Sigma, y\in \delta(x, c)$, insert ''$y \rightarrow xc$'' into $R'$ 
-                \item insert ''$q_{0} \rightarrow \epsilon$'' into $R'$
+                \item $\forall x, y \in Q, c \in \Sigma, y\in \delta(x, c)$, insert ``$y \rightarrow xc$'' into $R'$ 
+                \item insert ``$q_{0} \rightarrow \epsilon$'' into $R'$
             \end{itemize}
 
             Using similar idea, it's obvious that if $R$ in arbitrary CFG contains only transitions of type $A \rightarrow cB$ where $A, B \in V, c \in T^{*}$or only transitions of type $A \rightarrow Bc$, this CFG generates regular language.
@@ -95,12 +95,32 @@
             But if $R$ contains both type $A \rightarrow cB$ and type $A \rightarrow Bc$, thus this CFG might generate CFL.
             
             For example, consider this CFG
+            
             \begin{align*}
                 S & \rightarrow Bb | \epsilon \\
                 B & \rightarrow aS\\
             \end{align*}
-            This CFG generates CFL(hint: use pumping lemma of regular language). \\
-            But I(yyx) haven't figured out whether CFGs contains only these two types transitions can generate all CFLs or not. I(yyx) guess the answer is NO.
+
+            The language of this CFG may not be regular(hint: use pumping lemma of regular language). 
+
+            It also can be shown that there are some CFLs cannot be recognize by this CFG type.
+
+            First we need to formalize this type of CFG, $G = (V, T, R, S)$
+            $R$ contains transitions of \textbf{both} type $A \rightarrow cB$ and type $A \rightarrow Bc$, while it also contains type of $A \rightarrow c$ where $A,B \in V, c \in T^{*}$. 
+            
+            And we can simply this type into ``standard type'' with same ability, that $R$ contains transitions of \textbf{both} type $A \rightarrow cB$ and type $A \rightarrow Bc$, while it also contains type of $A \rightarrow c$ where $A,B \in V,c \in T$, especially, only $S$ could yields $\epsilon$. (hint: implement Chomsky normal form).
+            
+            Pumping lemma for ``standard type'', for any string in language $L$ whose length is larger than $p$, can be rewrite into $xyuvw$, $x, y, u, v, w \in T^{*}$ such that.
+
+            \begin{itemize}
+                \item[1.] $|xyvw| \leq p$
+                \item[2.] $|yv| \geq 1$
+                \item[3.] $\forall 0 \leq i,xy^{i}uv^{i}w \in L$  
+            \end{itemize}
+            (hint: consider parsing tree of ``standard type'')
+            
+            With this lemma, it can be shown that $\left\{ a^{n}b^{n}a^{m}b^{m} | n,m \geq 0 \right\}$ cannot be recognize by ``standard type''.
+
     \end{itemize}
 
    
