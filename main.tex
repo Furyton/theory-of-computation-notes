@@ -111,20 +111,31 @@
             Note that there are some CFLs that cannot be recognized by this type of CFGs.
         
             To show that, first we need to formalize this type of CFG, $G = (V, T, R, S)$
-            $R$ contains transitions of \textbf{both} type $A \rightarrow cB$ and type $A \rightarrow Bc$, while it also contains type of $A \rightarrow c$ where $A,B \in V, c \in T^{*}$. 
+            $R$ contains transitions of \textbf{both} type $A \rightarrow cB$ and type $A \rightarrow Bc$, while it also contains type of $A \rightarrow c$ where $A,B \in V, c \in T^{*}$.  For simplicity, it's denoted by ``DECFG'', while its language class is denoted by ``DECFL''.
             
-            Moreover we can simplify this type into ``standard type'' with same ability, that $R$ contains transitions of \textbf{both} type $A \rightarrow cB$ and type $A \rightarrow Bc$, while it also contains type of $A \rightarrow c$ where $A,B \in V,c \in T$, especially, only $S$ could yield $\epsilon$. (hint: implement Chomsky normal form).
+            Moreover we can simplify DECFG into ``standard DECFG'' with same ability, that $R$ contains transitions of \textbf{both} type $A \rightarrow cB$ and type $A \rightarrow Bc$, while it also contains type of $A \rightarrow c$ where $A,B \in V,c \in T$, especially, only $S$ could yield $\epsilon$. (hint: implement Chomsky normal form).
             
-            Pumping lemma for ``standard type'', for any string in language $L$ whose length is larger than $p$, can be rewrited as $xyuvw$, $x, y, u, v, w \in T^{*}$ such that.
+            Pumping lemma of standard DECFG, for any string in DECFL $L$, whose length is larger than $p$, can be rewrited as $xyuvw$, $x, y, u, v, w \in T^{*}$ such that.
         
             \begin{itemize}
                 \item[1.] $|xyvw| \leq p$
                 \item[2.] $|yv| \geq 1$
                 \item[3.] $\forall 0 \leq i,xy^{i}uv^{i}w \in L$  
             \end{itemize}
-            (hint: consider parsing tree of ``standard type'')
+            (hint: consider parsing tree of standard DECFG)
             
-            With this lemma, it can be shown that $\left\{ a^{n}b^{n}a^{m}b^{m} | n,m \geq 0 \right\}$ cannot be recognized by ``standard type''.
+            With this lemma, it can be shown that $\left\{ a^{n}b^{n}a^{m}b^{m} | n,m \geq 0 \right\}$ are not DECFL. Also it shows that DECFL is not closed under concatenation and Kleene star.
+            
+            But, it remains some properties and some of them are listed in the following table.
+            \begin{itemize}
+						\item[1. ] DECFL is close under intersection.
+						\item[2. ] DECFL is not close under union.
+						\item[3. ] DECFL is not close under complement.
+						\item[4. ] DECFL is close under intersection with regular language.
+					\end{itemize}
+            (hint for property4 : First, show that ``NFA'' that can read one character randomly from the the beginning or the end of input each time generates DECFL. Second, expand the state set of this ``NFA'' to prove it. (same ``NFA'' can be used to prove that $ALL_{DECFG}$ is not decidable))
+            
+            
     \end{itemize}
 
     
